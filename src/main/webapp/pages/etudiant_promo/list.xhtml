@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Liste des promotions d'etudiant"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="EtudiantPromoListForm">
+                <p:panel header="Liste des promotions d'etudiant">
+                    <p:dataTable id="datalist" value="#{etudiantPromoBean.etudiantPromos}" var="item"
+                                 selectionMode="single" selection="#{etudiantPromoBean.selectedEtudiantPromo}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Promo"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idrpomo}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Etudiant"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idetudiant}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montant}"/>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Nouveau" actionListener="#{etudiantPromoBean.restartSelectedEtudiantPromo}" update=":EtudiantPromoAddForm" oncomplete="PF('EtudiantPromoAddDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="Voir" update=":EtudiantPromoViewForm" oncomplete="PF('EtudiantPromoViewDialog').show()" disabled="#{empty etudiantPromoBean.selectedEtudiantPromo}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":EtudiantPromoEditForm" oncomplete="PF('EtudiantPromoEditDialog').show()" disabled="#{empty etudiantPromoBean.selectedEtudiantPromo}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{etudiantPromoBean.deleteEtudiantPromo}" update=":growl,datalist" disabled="#{empty etudiantPromoBean.selectedEtudiantPromo}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="add.xhtml"/>
+            <ui:include src="edit.xhtml"/>
+            <ui:include src="view.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

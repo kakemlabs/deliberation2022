@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EtudiantPromoViewDlg" widgetVar="EtudiantPromoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="Utilisateur">
+            <h:form id="EtudiantPromoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{etudiantPromoBean.selectedEtudiantPromo != null}">
+                        <h:outputText value="Promo"/>
+                        <h:outputText value="#{etudiantPromoBean.selectedEtudiantPromo.idpromo}" title="Promo"/>
+                        <h:outputText value="Etudiant"/>
+                        <h:outputText value="#{etudiantPromoBean.selectedEtudiantPromo.idetudiant}" title="Etudiant"/>
+                        <h:outputText value="Montant"/>
+                        <h:outputText value="#{etudiantPromoBean.selectedEtudiantPromo.montant}" title="Montant"/>
+                    </p:panelGrid>
+                    <p:commandButton value="Fermer" onclick="PF('EtudiantPromoViewDlg').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

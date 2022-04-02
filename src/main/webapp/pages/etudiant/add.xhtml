@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EtudiantAddDlg" widgetVar="EtudiantAddDialog" modal="true" resizable="false" appendTo="@(body)" header="Nouvel etudiant">
+            <h:form id="EtudiantAddForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Nom" for="nom" />
+                        <p:inputText id="nom" value="#{etudiantBean.selectedEtudiant.nom}" title="Nom" />
+                        
+                        <p:outputLabel value="Prenom" for="prenom" />
+                        <p:inputText id="prenom" value="#{etudiantBean.selectedEtudiant.prenom}" title="Prenom" />
+                        
+                        <p:outputLabel value="Numero carte" for="numeroCarte" />
+                        <p:inputText id="numeroCarte" value="#{etudiantBean.selectedEtudiant.numeroCarte}" title="Numero carte" />
+                        
+                        <p:outputLabel value="Date" for="date" />
+                        <p:inputText id="date" value="#{etudiantBean.selectedEtudiant.date}" title="Date" />
+                        
+                        <p:outputLabel value="Email" for="email" />
+                        <p:inputText id="email" value="#{etudiantBean.selectedEtudiant.email}" title="Email" />
+                        
+                        <p:outputLabel value="Telephone" for="tel" />
+                        <p:inputText id="tel" value="#{etudiantBean.selectedEtudiant.tel}" title="Telephone" />
+                        
+                        <p:outputLabel value="Lieu" for="lieu" />
+                        <p:inputText id="lieu" value="#{etudiantBean.selectedEtudiant.lieu}" title="Lieu" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{etudiantBean.addEtudiant}" value="Enregistrer" update="display,:EtudiantListForm:datalist,:growl" oncomplete="handleSubmit(args,'EtudiantAddDialog');"/>
+                    <p:commandButton value="Annuler" onclick="PF('EtudiantAddDlg').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EtudiantPromoAddDlg" widgetVar="EtudiantPromoAddDialog" modal="true" resizable="false" appendTo="@(body)" header="Nouvel utilisateur">
+            <h:form id="EtudiantPromoAddForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        
+                        <p:outputLabel value="Promo" for="idPromo" />
+                        <p:selectOneMenu id="idPromo" value="#{etudiantPromoBean.selectedEtudiantPromo.idpromo}" required="false" requiredMessage="Required">
+                            <f:selectItems value="#{etudiantPromo.etudiantPromos}"
+                                           var="idPromoItem"
+                                           itemValue="#{idPromoItem}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Etudiant" for="idEtudiant" />
+                        <p:selectOneMenu id="idEtudiant" value="#{etudiantPromoBean.selectedEtudiantPromo.idetudiant}" required="false" requiredMessage="Required">
+                            <f:selectItems value="#{etudiantBean.etudiants}"
+                                           var="idEtudiantItem"
+                                           itemValue="#{idEtudiantItem}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Montant" for="montant" />
+                        <p:inputText id="montant" value="#{etudiantPromoBean.selectedEtudiantPromo.montant}" title="Montant" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{etudiantPromoBean.addEtudiantPromo}" value="Enregistrer" update="display,:EtudiantPromoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EtudiantPromoAddDialog');"/>
+                    <p:commandButton value="Annuler" onclick="PF('EtudiantPromoAddDlg').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

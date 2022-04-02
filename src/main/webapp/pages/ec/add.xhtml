@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EcAddDlg" widgetVar="EcAddDialog" modal="true" resizable="false" appendTo="@(body)" header="Nouvel EC">
+            <h:form id="EcAddForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2">
+                        
+                        <p:outputLabel value="UE" for="idUe" />
+                        <p:selectOneMenu id="idUe" value="#{ecBean.selectedEc.idue}" required="false" requiredMessage="Required">
+                            <f:selectItems value="#{ueBean.ues}"
+                                           var="idUeItem"
+                                           itemValue="#{idUeItem}"/>
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Valeur" for="valeur" />
+                        <p:inputText id="valeur" value="#{ecBean.selectedEc.valeur}" title="Valeur" />
+                        
+                        <p:outputLabel value="Coefficient" for="coefficient" />
+                        <p:inputText id="coefficient" value="#{ecBean.selectedEc.coefficient}" title="Coefficient" />
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ecBean.addEc}" value="Enregistrer" update="display,:EcListForm:datalist,:growl" oncomplete="handleSubmit(args,'EcAddDialog');"/>
+                    <p:commandButton value="Annuler" onclick="PF('EcAddDlg').hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../template/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="Liste des utilisateur"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="UserListForm">
+                <p:panel header="Utilisateurs">
+                    <p:dataTable id="datalist" value="#{userBean.users}" var="item"
+                                 selectionMode="single" selection="#{userBean.selectedUser}"
+                                 paginator="true"
+                                 rowKey="#{item.id}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Profil"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProfil}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prenom"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prenom}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Telephone"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tel}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Email"/>
+                            </f:facet>
+                            <h:outputText value="#{item.email}"/>
+                        </p:column>
+                        
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="Nouveau" actionListener="#{userBean.restartSelectedUser}" update=":UserAddForm" oncomplete="PF('UserAddDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="Voir" update=":UserViewForm" oncomplete="PF('UserViewDialog').show()" disabled="#{empty userBean.selectedUser}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Modifier" update=":UserEditForm" oncomplete="PF('UserEditDialog').show()" disabled="#{empty userBean.selectedUser}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="Supprimer" actionListener="#{userBean.deleteUser}" update=":growl,datalist" disabled="#{empty userBean.selectedUser}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="add.xhtml"/>
+            <ui:include src="edit.xhtml"/>
+            <ui:include src="view.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>
